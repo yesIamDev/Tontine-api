@@ -8,7 +8,7 @@ Route.get('/', async () => {
 Route.group(()=>{
   Route.post("register", "AuthController.register");
   Route.post("login", "AuthController.login");
-}).prefix("api")
+}).prefix("api/v1")
 
 Route.resource("members","MembersController");
 Route.resource("activity","ActivitiesController");
