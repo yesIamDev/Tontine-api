@@ -9,7 +9,8 @@ export default class Members extends BaseSchema {
       table.string('name').notNullable().unique()
       table.string('postname').notNullable()
       table.string('phone').notNullable().unique()
-      table.uuid('acitivity_id').references('activivities.id').onDelete('CASCADE') // delete member when an activity is deleted
+      table.enum('status',['isBeneficiary','isNoBeneficiary'])
+      table.uuid('activity_id').references('id').inTable('activities').onDelete('CASCADE') // delete member when an activity is deleted
 
       table.timestamps(true)
     })

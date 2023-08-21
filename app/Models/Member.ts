@@ -14,7 +14,10 @@ export default class Member extends BaseModel {
   public postname: string
 
   @column()
-  public phone: string
+  public phone: 
+  
+  @column()
+  public status: string
 
   @beforeCreate()
   public static async setId(member:Member ){
@@ -26,4 +29,4 @@ export default class Member extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-}s
+}

@@ -7,7 +7,7 @@ export default class Cotisations extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary()
       table.uuid('member_id').references('id').inTable('members').onDelete('CASCADE')
-      table.uuid('activity_id').references('id').inTable('activities').onDelete('CASCADE')
+      table.uuid('activities_id').references('id').inTable('activities').onDelete('CASCADE')
       table.integer('amount').notNullable()
       
       table.timestamps(true)

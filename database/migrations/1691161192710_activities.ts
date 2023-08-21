@@ -10,7 +10,7 @@ export default class Activities extends BaseSchema {
       table.text('description')
       table.date('start')
       table.date('end')
-      table.date('cycle')
+      table.enum('cycle',['parJour','parSemaine','parMois','parAnnee'])
       table.integer('amount_to_give').notNullable()
       table.enum('status',['inProgress','completed'])
       table.enum('currency',['USD','FC'])

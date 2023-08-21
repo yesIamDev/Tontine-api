@@ -20,7 +20,7 @@ export default class Activity extends BaseModel {
   public end: Date
 
   @column()
-  public cycle: Date
+  public cycle: string
 
   @column()
   public amountToGive: number
