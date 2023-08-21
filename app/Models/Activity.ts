@@ -1,9 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import {v4} from 'uuid'
-import Cotisation from './Cotisation'
+import { BaseModel, column, beforeCreate, hasMany, HasMany} from '@ioc:Adonis/Lucid/Orm'
 import Member from './Member'
-import { Has } from '@ioc:Adonis/Lucid/Relations'
+import {v4} from 'uuid'
 
 export default class Activity extends BaseModel {
   @column({ isPrimary: true })
@@ -31,23 +29,16 @@ export default class Activity extends BaseModel {
   public status: string
 
   @column()
-  public members: number
-
-  @column()
   public currency: string
 
-  @hasMany(()=>Cotisation)
-  public cotisation: HasMany<typeof Cotisation>
-
-  @hasMany(() => Member)
-  public member: HasMany<typeof Member>
+  @hasMany(()=>Member)
+  public members: HasMany<typeof Member>
 
   @beforeCreate()
   public static async setId(activity:Activity ){
     activity.id=v4()
   }
 
-  
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeCreate} from '@ioc:Adonis/Lucid/Orm'
 import {v4} from 'uuid'
+
 
 export default class Member extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +26,4 @@ export default class Member extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-}
+}s

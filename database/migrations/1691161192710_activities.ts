@@ -13,13 +13,11 @@ export default class Activities extends BaseSchema {
       table.date('cycle')
       table.integer('amount_to_give').notNullable()
       table.enum('status',['inProgress','completed'])
-      table.integer('members').notNullable()
       table.enum('currency',['USD','FC'])
       
       table.timestamps(true)
     })
   }
-
   public async down () {
     this.schema.dropTable(this.tableName)
   }

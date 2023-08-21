@@ -3,7 +3,7 @@
    # api/v1/register   => to register a user
         {
             username: "david keukeu",
-            emai: "davidkeukeu88@gmail.com",
+            email: "davidkeukeu88@gmail.com",
             password:"12345678"
         }
    
@@ -16,7 +16,7 @@
 # 002 Member
    
 
-   # /members      => to get all members
+   # api/v1/members      => to get all members
 
    # /members      =>  to create a new member
         {

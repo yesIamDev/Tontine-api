@@ -10,7 +10,7 @@ Route.group(()=>{
   Route.post("login", "AuthController.login");
 }).prefix("api");
 
-Route.resource("members","MembersController");
+Route.resource("member","MembersController");
 Route.resource("activity","ActivitiesController");
 Route.resource("cotisation","CotisationsController");
 Route.resource("beneficiary","beneficiariesController");
