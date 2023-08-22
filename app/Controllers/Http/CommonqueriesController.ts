@@ -5,5 +5,4 @@ export default class CommonqueriesController {
         return await config.LucidModel.findBy(config.column,config.value);  
    }
 
-
 }

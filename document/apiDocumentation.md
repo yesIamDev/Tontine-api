@@ -16,13 +16,16 @@
 # 002 Member
    
 
-   # api/v1/members      => to get all members
+   # /members      => to get all members
+
+   # /members/:activityId  =>  to get all members by activity
 
    # /members      =>  to create a new member
         {
             name:"alexander"
             postname:"chambu"
             phone:"+243 970652307"
+            status:"beneficiary"
         }
    # /members/43f33fd1-9248-4306-affc-dae91e83ba57   =>  for update and delete 
 
@@ -48,6 +51,10 @@
 
   # /cotisation      =>   to get all cotisations
 
+  # /cotisation/:activityId => to get all cotisations by activity
+
+  # /cotisation/:memberId => to get all member's cotisations in a activity
+
   # /cotisation     =>   to create a new cotisation
             {
                 amount:500,
@@ -56,11 +63,3 @@
             }
   # /cotisation/43f33fd1-9248-4306-affc-dae91e83ba57   =>  for update and delete 
 
-# 005 Beneficiary
-
-  # /beneficiary   =>   to create a new beneficiary on an activity
-        {
-            status:"invalid",
-            memberId:"43f33fd1-9248-4306-affc-dae91e83ba57"
-        }
-  # /beneficiary/43f33fd1-9248-4306-affc-dae91e83ba57  =>  to update and delete

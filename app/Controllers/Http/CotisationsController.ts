@@ -2,8 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cotisation from 'App/Models/Cotisation'
 import { isNumeric } from '../utils/helper'; 
 import { Status } from '../utils/helper';
+import CommonqueriesController from './CommonqueriesController';
+import Database from '@ioc:Adonis/Lucid/Database';
 
 export default class CotisationsController {
+
+  // get all cotisations
 
   public async index({response}:HttpContextContract){
         try{
@@ -12,6 +16,31 @@ export default class CotisationsController {
         }catch(error){
           return   response.safeStatus(Status.Badrequest).send({message:error});
         }
+  }
+
+  // get cotisations by Activity_id
+
+  public async getAllByActivity({response,params}:HttpContextContract){
+
+    try{
+
+      const data = await CommonqueriesController.findbyany({LucidModel: Cotisation, column:'activity_id', value:params.activityId});
+      return response.send(data);                       
+
+    }catch(error){
+      return   response.safeStatus(Status.Badrequest).send({message:error});
+    }
+  }
+
+  // get cotisations by Member_id
+
+  public async getAllByMember({response,params}:HttpContextContract){
+    try{
+        const data = await CommonqueriesController.findbyany({LucidModel: Cotisation,  column:'member_id', value:params.memberId })
+        return response.send(data);
+    }catch(error){
+      return   response.safeStatus(Status.Badrequest).send({message:error});
+    }
   }
 
   public async store({request,response}: HttpContextContract) {

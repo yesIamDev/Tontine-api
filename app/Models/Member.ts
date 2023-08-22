@@ -14,10 +14,13 @@ export default class Member extends BaseModel {
   public postname: string
 
   @column()
-  public phone: 
+  public phone: string
   
   @column()
   public status: string
+
+  @column()
+  public activity_id: string
 
   @beforeCreate()
   public static async setId(member:Member ){

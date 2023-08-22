@@ -22,3 +22,4 @@ export default class Activities extends BaseSchema {
     this.schema.dropTable(this.tableName)
   }
 }
+

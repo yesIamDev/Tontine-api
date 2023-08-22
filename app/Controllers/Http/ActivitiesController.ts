@@ -23,14 +23,12 @@ export default class ActivitiesController {
     let cycle = request.input('cycle')
     let amount_to_give = request.input('amount_to_give')
     let status = request.input('status')
-    let members = request.input('members')
     let currency = request.input('currency')
 
     try {
       str_validation(designation, 'designation')
       str_validation(description, 'description')
       isNumeric(amount_to_give, 'amount_to_give')
-      isNumeric(members, 'members')
 
       if (
         await CommonqueriesController.findbyany({
@@ -48,7 +46,6 @@ export default class ActivitiesController {
         cycle: cycle,
         amountToGive: amount_to_give,
         status: status,
-        members: members,
         currency: currency
       })
       return response.json({message:"creation activite avec succes"});
@@ -65,7 +62,6 @@ export default class ActivitiesController {
     let cycle = request.input('cycle')
     let amount_to_give = request.input('amount_to_give')
     let status = request.input('status')
-    let members = request.input('members')
     let currency = request.input('currency')
 
     try{
@@ -87,7 +83,6 @@ export default class ActivitiesController {
         data.cycle = cycle || data.cycle;
         data.amountToGive = amount_to_give!=undefined || amount_to_give!=0 ? amount_to_give : data.amountToGive;
         data.status = status;
-        data.members = members;
         data.currency = currency;
         await data.save();
         return response.json({message: "Activite mise a jour avec succes!"});
