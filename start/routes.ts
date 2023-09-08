@@ -5,7 +5,7 @@ Route.get('/', async () => {
 })
 
 Route.group(() => {
-  Route.post('register', 'AuthController.register')
+
   Route.post('login', 'AuthController.login')
 }).prefix('api/v1')
 
@@ -22,3 +22,4 @@ Route.resource('member', 'MembersController')
 Route.resource('activity', 'ActivitiesController')
 Route.resource('cotisation', 'CotisationsController')
 Route.resource('beneficiary', 'beneficiariesController')
+Route.post('api/v1/registers', 'AuthController.registers')
