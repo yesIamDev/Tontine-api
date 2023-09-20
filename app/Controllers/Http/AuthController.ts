@@ -27,8 +27,6 @@ export default class AuthController {
       newUser.username = username
       await newUser.save()
 
-    
-
       return response.json("done");
     } catch (error) {
       return response.json({ erreur: error })
