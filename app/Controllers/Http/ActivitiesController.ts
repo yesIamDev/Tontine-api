@@ -1,17 +1,16 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Activity from 'App/Models/Activity'
-import { Status,isNumeric } from '../utils/helper'
+import { Status, isNumeric } from '../utils/helper'
 import CommonqueriesController from './CommonqueriesController'
 import { str_validation } from '../utils/validator'
 
 export default class ActivitiesController {
-
-  public async index({response}: HttpContextContract) {
-    try{
-      const data = await Activity.query();
-      return response.json({data:data});
-    }catch(error){
-      return   response.safeStatus(Status.Badrequest).send({message:error});
+  public async index({ response }: HttpContextContract) {
+    try {
+      const data = await Activity.query()
+      return response.json({ data: data })
+    } catch (error) {
+      return response.safeStatus(Status.Badrequest).send({ message: error })
     }
   }
 
@@ -46,15 +45,29 @@ export default class ActivitiesController {
         cycle: cycle,
         amountToGive: amount_to_give,
         status: status,
-        currency: currency
+        currency: currency,
       })
-      return response.json({message:"creation activite avec succes"});
+      return response.json({ message: 'creation activite avec succes' })
     } catch (error) {
-      return   response.safeStatus(Status.Badrequest).send({message:error});
+      return response.safeStatus(Status.Badrequest).send({ message: error })
     }
   }
 
-  public async update({request,response,params}: HttpContextContract) {
+  public async getOneById({ response, params }: HttpContextContract) {
+    try {
+      const activity = await Activity.findBy('id', params.activityId)
+
+      if (activity) {
+        return response.send({ data: activity })
+      } else {
+        return response.send('activite introuvable !')
+      }
+    } catch (error) {
+      return response.safeStatus(Status.Badrequest).send({ message: error })
+    }
+  }
+
+  public async update({ request, response, params }: HttpContextContract) {
     let designation = request.input('designation')
     let description = request.input('description')
     let start = request.input('start')
@@ -64,42 +77,44 @@ export default class ActivitiesController {
     let status = request.input('status')
     let currency = request.input('currency')
 
-    try{
+    try {
       if (
         await CommonqueriesController.findbyany({
           LucidModel: Activity,
           column: 'designation',
           value: designation,
         })
-      )throw "ce nom d'activite  existe deja"
+      )
+        throw "ce nom d'activite  existe deja"
 
-      const data = await Activity.find(params.id);
+      const data = await Activity.find(params.id)
 
-      if(data){
-        data.designation = designation!=undefined || designation!="" ? designation : data.designation;
-        data.description = description!=undefined || description!="" ? description : data.description;
-        data.start = start || data.start;
-        data.end = end || data.end;
-        data.cycle = cycle || data.cycle;
-        data.amountToGive = amount_to_give!=undefined || amount_to_give!=0 ? amount_to_give : data.amountToGive;
-        data.status = status;
-        data.currency = currency;
-        await data.save();
-        return response.json({message: "Activite mise a jour avec succes!"});
+      if (data) {
+        data.designation =
+          designation != undefined || designation != '' ? designation : data.designation
+        data.description =
+          description != undefined || description != '' ? description : data.description
+        data.start = start || data.start
+        data.end = end || data.end
+        data.cycle = cycle || data.cycle
+        data.amountToGive =
+          amount_to_give != undefined || amount_to_give != 0 ? amount_to_give : data.amountToGive
+        data.status = status
+        data.currency = currency
+        await data.save()
+        return response.json({ message: 'Activite mise a jour avec succes!' })
       }
-
-    }catch(error){
-      return   response.safeStatus(Status.Badrequest).send({message:error});
+    } catch (error) {
+      return response.safeStatus(Status.Badrequest).send({ message: error })
     }
-
   }
 
-  public async destroy({response,params}: HttpContextContract) {
-    try{
-      await Activity.query().where('id',params.id).delete();
-      return response.json({message:"Acitive effacee avec succes"});
-    }catch(error){
-      return   response.safeStatus(Status.Badrequest).send({message:error});
+  public async destroy({ response, params }: HttpContextContract) {
+    try {
+      await Activity.query().where('id', params.id).delete()
+      return response.json({ message: 'Acitive effacee avec succes' })
+    } catch (error) {
+      return response.safeStatus(Status.Badrequest).send({ message: error })
     }
   }
 }

@@ -2,8 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cotisation from 'App/Models/Cotisation'
 import { isNumeric } from '../utils/helper'; 
 import { Status } from '../utils/helper';
-import CommonqueriesController from './CommonqueriesController';
-import Database from '@ioc:Adonis/Lucid/Database';
+import Activity from 'App/Models/Activity';
+
 
 export default class CotisationsController {
 
@@ -24,7 +24,13 @@ export default class CotisationsController {
 
     try{
 
-      const data = await CommonqueriesController.findbyany({LucidModel: Cotisation, column:'activity_id', value:params.activityId});
+      const data = await Cotisation.query().where('activity_id',params.activityId);
+      
+      if(!data){
+          return response.json({
+            "message":"Aucune Cotisation trouvee pour cette activite"
+          })
+      }
       return response.send(data);                       
 
     }catch(error){
@@ -36,8 +42,12 @@ export default class CotisationsController {
 
   public async getAllByMember({response,params}:HttpContextContract){
     try{
-        const data = await CommonqueriesController.findbyany({LucidModel: Cotisation,  column:'member_id', value:params.memberId })
-        return response.send(data);
+        const cotisations = await Cotisation.query().where('member_id',params.memberId);
+        if(cotisations){
+          return response.send({cotisations:cotisations});
+        }else{
+          return response.json({"message":"Aucune cotisation trouvee"});
+        } 
     }catch(error){
       return   response.safeStatus(Status.Badrequest).send({message:error});
     }

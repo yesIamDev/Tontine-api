@@ -16,12 +16,17 @@ export default class MembersController {
 
   public async getAllByActivity({ response, params }: HttpContextContract) {
     try {
-      const data = await CommonqueriesController.findbyany({
-        LucidModel: Member,
-        column: 'activity_id',
-        value: params.activityId,
-      })
-      return response.send(data)
+      const members = await Member.query().where('activity_id',params.activityId);
+      if(members){
+        return response.send({
+          data:members
+        })
+      }else{
+        return response.json({
+          "message":"Aucun membre trouve pour cette activite"
+        })
+      }
+      
     } catch (error) {
       return response.safeStatus(Status.Badrequest).send({ message: error })
     }

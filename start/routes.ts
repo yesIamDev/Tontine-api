@@ -13,10 +13,14 @@ Route.group(() => {
 Route.get('/cotisation/:activityId', 'CotisationsController.getAllByActivity')
 
 // Route to get cotisations by member
-Route.get('/cotisation/:memberId', 'CotisationsController.getAllByMember')
+Route.get('/cotisationByMember/:memberId', 'CotisationsController.getAllByMember')
 
 // Route to get Members by activity
 Route.get('/member/:activityId', 'MembersController.getAllByActivity')
+
+// Route to get one activity 
+
+Route.get('/activity/:activityId', 'ActivitiesController.getOneById')
 
 //Route to update Member's status
 Route.patch('/member/:id','MembersController.updateMemberStatus').prefix('api/v1')
