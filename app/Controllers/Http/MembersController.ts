@@ -16,17 +16,16 @@ export default class MembersController {
 
   public async getAllByActivity({ response, params }: HttpContextContract) {
     try {
-      const members = await Member.query().where('activity_id',params.activityId);
-      if(members){
+      const members = await Member.query().where('activity_id', params.activityId)
+      if (members) {
         return response.send({
-          data:members
+          data: members,
         })
-      }else{
+      } else {
         return response.json({
-          "message":"Aucun membre trouve pour cette activite"
+          message: 'Aucun membre trouve pour cette activite',
         })
       }
-      
     } catch (error) {
       return response.safeStatus(Status.Badrequest).send({ message: error })
     }
@@ -61,16 +60,29 @@ export default class MembersController {
   }
 
   public async updateMemberStatus({ request, response, params }: HttpContextContract) {
-    let status: string = request.input('status')
+    let name = request.input('name')
+    let postname = request.input('postname')
+    let phone = request.input('phone')
+    let status = request.input('status')
 
-    await Member.query().where('id', params.id).update({
-      status: status,
-    })
-
-    const newMember = await Member.findBy('id', params.id)
-
-    if (newMember) {
-      return response.json({ message: 'update member status successfully ', data: newMember })
+    try {
+      const member = await Member.find(params.id)
+      if (member) {
+        member.name = name != undefined || name != '' ? name : member.name
+        member.postname = postname != undefined || postname != '' ? postname : member.postname
+        member.phone = phone != undefined || phone != '' ? phone : member.phone
+        member.status = status != undefined || status != '' ? status : member.status
+      } else {
+        return response.json({
+          message: 'ce membre est introuvable!',
+        })
+      }
+      await member.save()
+      return response.send({
+        data: member,
+      })
+    } catch (error) {
+      response.json(error)
     }
   }
 
