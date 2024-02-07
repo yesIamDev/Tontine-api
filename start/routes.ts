@@ -1,7 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return { hello: 'Bonsoir' }
 })
 
 Route.group(() => {
@@ -28,5 +28,4 @@ Route.patch('/member/:id','MembersController.updateMemberStatus').prefix('api/v1
 Route.resource('member', 'MembersController')
 Route.resource('activity', 'ActivitiesController')
 Route.resource('cotisation', 'CotisationsController')
-Route.resource('beneficiary', 'beneficiariesController')
 Route.post('api/v1/registers', 'AuthController.registers')
