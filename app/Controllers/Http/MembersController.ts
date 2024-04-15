@@ -1,8 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Member from 'App/Models/Member'
 import { Status } from '../utils/helper'
 import CommonqueriesController from './CommonqueriesController'
 import { str_validation } from '../utils/validator'
+import Member from '../../Models/Member'
 
 export default class MembersController {
   public async index({ response }: HttpContextContract) {

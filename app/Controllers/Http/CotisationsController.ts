@@ -1,9 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cotisation from 'App/Models/Cotisation'
 import { isNumeric } from '../utils/helper'; 
 import { Status } from '../utils/helper';
-
-
+import Cotisation from '../../Models/Cotisation';
 
 export default class CotisationsController {
 

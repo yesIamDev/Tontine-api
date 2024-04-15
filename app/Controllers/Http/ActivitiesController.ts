@@ -1,8 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Activity from 'App/Models/Activity'
 import { Status, isNumeric } from '../utils/helper'
 import CommonqueriesController from './CommonqueriesController'
 import { str_validation } from '../utils/validator'
+import Activity from '../../Models/Activity'
 
 export default class ActivitiesController {
   public async index({ response }: HttpContextContract) {
